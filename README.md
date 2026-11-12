@@ -8,7 +8,7 @@ separados das rotas HTTP, e o SQLite persiste os dados em um arquivo local.
 
 - Python 3.9 ou superior
 - Visual Studio Code
-- Extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) para executar `teste.http`
+- Extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) para executar o arquivo `teste.http`.
 
 ## Instalação
 
