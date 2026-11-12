@@ -38,9 +38,6 @@ prioridade sobre o valor do `.env`. Caminhos relativos são resolvidos a partir
 do diretório em que o comando é executado. Sem essa configuração, o padrão é
 `teste.db`.
 
-O `.env` está no `.gitignore` para não versionar configurações locais. Ao clonar
-o projeto, crie esse arquivo na raiz usando o bloco acima como exemplo.
-
 ## Executar a API
 
 Com o ambiente virtual ativado, inicie o servidor na raiz do projeto:
