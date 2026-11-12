@@ -26,6 +26,4 @@ class ConnectionFactory:
 
     def create_connection(self) -> sqlite3.Connection:
         # sqlite3.connect abre o banco existente ou cria o arquivo se necessário.
-        connection = sqlite3.connect(self.database_path)
-        print("Conexão com SQLite estabelecida!")
-        return connection
+        return sqlite3.connect(self.database_path)

@@ -24,12 +24,11 @@ class UsuarioDAO:
                 nascimento TEXT
             )
         """
-        # closing fecha a conexão ao sair do bloco; with connection confirma
-        # a transação se não houver erro (ou faz rollback caso haja exceção).
+        # closing fecha a conexão; o bloco interno confirma a transação ou
+        # desfaz as alterações se ocorrer uma exceção.
         with closing(self.connection_factory.create_connection()) as connection:
             with connection:
                 connection.execute(create_table_sql)
-        print("Tabela 'usuario' criada ou já existe!")
 
     def create(self, usuario: Usuario) -> Usuario:
         # Os ? são parâmetros: os valores são enviados separados do SQL,
@@ -43,13 +42,24 @@ class UsuarioDAO:
                 # lastrowid contém a chave primária atribuída pelo SQLite.
                 usuario.id = cursor.lastrowid
 
-        print(
-            "USUÁRIO GRAVADO NO BANCO DE DADOS:"
-            f"\nID: {usuario.id}"
-            f"\nNOME: {usuario.nome}"
-            f"\nDATA DE NASCIMENTO: {usuario.nascimento}"
-        )
         return usuario
+
+    def read_all(self) -> list[Usuario]:
+        # A ordenação por ID torna a listagem previsível para clientes da API.
+        select_sql = "SELECT id, nome, nascimento FROM usuario ORDER BY id"
+        with closing(self.connection_factory.create_connection()) as connection:
+            connection.row_factory = sqlite3.Row
+            rows = connection.execute(select_sql).fetchall()
+
+        # Cada linha do SQLite é convertida em um objeto do domínio.
+        return [
+            Usuario(
+                id=row["id"],
+                nome=row["nome"],
+                nascimento=row["nascimento"],
+            )
+            for row in rows
+        ]
 
     def read_last_inserted_id(self, connection: sqlite3.Connection) -> int:
         # MAX(id) obtém o maior identificador; uma tabela vazia não tem máximo.
@@ -71,40 +81,32 @@ class UsuarioDAO:
 
         if row is None:
             # Optional[Usuario]: retorna None quando não há correspondência.
-            print("Usuário não encontrado!")
             return None
 
         # Converte a linha retornada pelo banco em um objeto do domínio.
-        usuario = Usuario(
+        return Usuario(
             id=row["id"],
             nome=row["nome"],
             nascimento=row["nascimento"],
         )
-        print(
-            "USUÁRIO LIDO DO BANCO DE DADOS:"
-            f"\nID: {usuario.id}"
-            f"\nNOME: {usuario.nome}"
-            f"\nDATA DE NASCIMENTO: {usuario.nascimento}"
-        )
-        return usuario
 
-    def update(self, usuario: Usuario) -> None:
-        # Atualiza os dados cujo ID coincide com o do objeto recebido.
+    def update(self, usuario: Usuario) -> bool:
+        # Atualiza o registro e informa se o ID existia no banco.
         update_sql = (
             "UPDATE usuario SET nome = ?, nascimento = ? WHERE id = ?"
         )
         with closing(self.connection_factory.create_connection()) as connection:
             with connection:
-                connection.execute(
+                cursor = connection.execute(
                     update_sql,
                     (usuario.nome, usuario.nascimento, usuario.id),
                 )
-        print(f"O usuário {usuario.nome} foi atualizado no banco de dados!")
+                return cursor.rowcount > 0
 
-    def delete(self, usuario: Usuario) -> None:
-        # Remove o registro usando o ID, sem depender do nome do usuário.
+    def delete(self, usuario_id: int) -> bool:
+        # Remove o registro e informa se o ID existia no banco.
         delete_sql = "DELETE FROM usuario WHERE id = ?"
         with closing(self.connection_factory.create_connection()) as connection:
             with connection:
-                connection.execute(delete_sql, (usuario.id,))
-        print(f"O usuario {usuario.nome} foi removido do BD.")
+                cursor = connection.execute(delete_sql, (usuario_id,))
+                return cursor.rowcount > 0

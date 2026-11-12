@@ -1,0 +1,28 @@
+@baseUrl = http://127.0.0.1:8000
+
+### CREATE: cadastra um usuário e retorna o ID gerado pelo SQLite
+POST {{baseUrl}}/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Ana Silva",
+  "nascimento": "2000-06-07"
+}
+
+### READ: lista todos os usuários cadastrados
+GET {{baseUrl}}/usuarios
+
+### READ: consulta pelo ID; substitua 1 pelo ID retornado no cadastro
+GET {{baseUrl}}/usuarios/1
+
+### UPDATE: substitua 1 pelo ID retornado no cadastro
+PUT {{baseUrl}}/usuarios/1
+Content-Type: application/json
+
+{
+  "nome": "Ana Souza",
+  "nascimento": "2000-06-07"
+}
+
+### DELETE: substitua 1 pelo ID retornado no cadastro
+DELETE {{baseUrl}}/usuarios/1
