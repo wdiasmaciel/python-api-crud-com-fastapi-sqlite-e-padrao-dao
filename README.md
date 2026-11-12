@@ -46,8 +46,9 @@ Com o ambiente virtual ativado, inicie o servidor na raiz do projeto:
 python -m uvicorn src.main:app --reload
 ```
 
-Ao iniciar, a API cria a tabela `usuario` caso ainda não exista. A documentação
-Swagger fica disponível em <http://127.0.0.1:8000/docs> e a documentação
+Ao iniciar, a API cria a tabela `usuario` caso ainda não exista. 
+
+A documentação Swagger fica disponível em <http://127.0.0.1:8000/docs> e a documentação
 alternativa em <http://127.0.0.1:8000/redoc>.
 
 ## Rotas e códigos HTTP
