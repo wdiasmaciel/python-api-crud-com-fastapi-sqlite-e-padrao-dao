@@ -1,6 +1,6 @@
 # API CRUD de usuários com FastAPI, SQLite e DAO
 
-Este projeto didático demonstra uma API REST para cadastrar, consultar, atualizar
+Este projeto demonstra uma API REST para cadastrar, consultar, atualizar
 e excluir usuários. O padrão **Data Access Object (DAO)** mantém os comandos SQL
 separados das rotas HTTP, e o SQLite persiste os dados em um arquivo local.
 
