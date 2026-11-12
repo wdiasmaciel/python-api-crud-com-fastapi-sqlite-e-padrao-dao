@@ -109,3 +109,35 @@ atualização e exclusão retornam `404 Not Found`. Dados inválidos retornam
 Assim, a rota traduz HTTP em chamadas ao DAO, e o DAO traduz essas chamadas em
 operações no banco. Os valores SQL são passados por parâmetros (`?`), em vez de
 serem concatenados ao comando.
+
+```
+
+# Exercício
+
+Em Python com FastAPI, escreva um algoritmo que:
+
+1. Cadastre veículos no banco de dados SQLite, segundo o padrão "Data Access Object" (DAO). A classe Veiculo deve possuir as propriedades: marca, modelo, número do chassi, placa e cor. Após cadastrar todos os veículos, o algoritmo deve permitir:
+  - Consultar os veículos cadastrados.
+  - Atualizar os veículos cadastrados.
+  - Excluir os veículos cadastrados.
+
+2. Implemente o CRUD (Create, Read, Update, Delete) do banco de dados de uma padaria, empregando o padrão "Data Access Object" (DAO). Considere as tabelas:
+  - Cliente(id_cliente, nome),
+  - Pedido(id_pedido, id_cliente, data_pedido, total),
+  - Produto(id_produto, nome, preco) e
+  - ItemPedido(id_pedido, id_produto, quantidade).
+
+3. Implemente o CRUD (Create, Read, Update, Delete) do banco de dados de uma agência de viagens, empregando o padrão "Data Access Object" (DAO). Considere as tabelas:
+  - Cliente(id_cliente, nome),
+  - Reserva(id_reserva, id_cliente, id_destino, data_viagem, valor) e
+  - Destino(id_destino, nome_destino, pais).
+
+4. Implemente o CRUD (Create, Read, Update, Delete) do banco de dados de uma clínica médica, empregando o padrão "Data Access Object" (DAO). Considere as tabelas:
+  - Paciente(id_paciente, nome, telefone, email),
+  - Medico(id_medico, nome, telefone, email, especialidade) e
+  - Consulta(id_consulta, id_paciente, id_medico, data_consulta, valor).
+
+5. Implemente o CRUD (Create, Read, Update, Delete) do banco de dados de uma farmácia, empregando o padrão "Data Access Object" (DAO). Considere as tabelas:
+  - Medicamento(id_medicamento, nome, preco, data_validade),
+  - Fornecedor(id_fornecedor, nome, telefone, email, endereco, cidade, estado) e
+  - Compra(id_compra, id_medicamento, id_fornecedor, quantidade, data_compra).
