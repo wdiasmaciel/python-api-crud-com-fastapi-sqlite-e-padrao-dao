@@ -110,9 +110,9 @@ Assim, a rota traduz HTTP em chamadas ao DAO, e o DAO traduz essas chamadas em
 operações no banco. Os valores SQL são passados por parâmetros (`?`), em vez de
 serem concatenados ao comando.
 
-```
+---
 
-# Exercício
+## Exercício
 
 Em Python com FastAPI, escreva um algoritmo que:
 
