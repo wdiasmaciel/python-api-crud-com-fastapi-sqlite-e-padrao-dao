@@ -20,7 +20,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-No Windows, ative o ambiente com `.venv\Scripts\activate`.
+**OBS**:
+> No Windows, ative o ambiente com `.venv\Scripts\activate`.
 
 ## Configuração com `.env`
 
