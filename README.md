@@ -16,12 +16,43 @@ Na raiz do repositório, crie e ative um ambiente virtual e instale as dependên
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate # Linux/macOS
 pip install -r requirements.txt
 ```
 
+No Windows, ative o ambiente com:
+
+```bash
+.venv\Scripts\activate
+```
+
+No comando:
+
+`python -m venv .venv`
+
+1. **python**: executa o interpretador Python.
+2. **-m**: significa `module`. Executa um módulo Python como script.
+3. **venv**: nome do módulo padrão do Python que cria ambientes virtuais (virtual environment).
+4. **.venv**: nome e caminho da pasta que será criada para conter o ambiente.
+Exemplo:
+
+
+Cria o ambiente na pasta .venv dentro do diretório atual. Em seguida, ative-o:
+
+
+Você pode usar outro nome, como meuambiente:
+
+
+Mas .venv é uma convenção comum e costuma ser ignorada pelo Git.
+
 **OBS**:
-> No Windows, ative o ambiente com `.venv\Scripts\activate`.
+> Um ambiente virtual (venv) é um ambiente Python isolado para um projeto. 
+> Ele mantém separadamente:
+> * Versões de pacotes.
+> * Dependências do projeto.
+> * O interpretador Python usado nele.
+> * Isso evita conflitos entre projetos que dependem de versões diferentes da mesma biblioteca.
+> Ao ativá-lo, o terminal passa a usar o Python e os pacotes daquele ambiente:
 
 ## Configuração com `.env`
 
