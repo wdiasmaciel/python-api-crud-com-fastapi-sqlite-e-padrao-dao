@@ -1,4 +1,6 @@
+# Cria métodos comuns da classe, como __init__, automaticamente.
 from dataclasses import dataclass
+# Permite representar valores que podem ser ausentes.
 from typing import Optional
 
 

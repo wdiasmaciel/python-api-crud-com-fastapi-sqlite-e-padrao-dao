@@ -1,8 +1,13 @@
+# Disponibiliza o acesso integrado ao banco SQLite.
 import sqlite3
+# Fecha a conexão automaticamente após o uso.
 from contextlib import closing
+# Permite indicar que um valor pode ser None.
 from typing import Optional
 
+# Importa a fábrica responsável por criar conexões com o banco.
 from ..database.connection_factory import ConnectionFactory
+# Importa o objeto usado pelo DAO para representar usuários.
 from ..model.usuario import Usuario
 
 

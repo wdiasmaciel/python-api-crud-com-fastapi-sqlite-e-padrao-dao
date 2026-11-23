@@ -1,11 +1,22 @@
+# Permite criar um gerenciador de recursos executado durante o ciclo de vida da API.
 from contextlib import asynccontextmanager
+
+# Permite representar datas no formato ano-mês-dia.
 from datetime import date
+
+# Fornece tipos.
 from typing import AsyncGenerator, List, Optional
 
+# Define dependências, cria a aplicação e trata respostas HTTP.
 from fastapi import Depends, FastAPI, HTTPException, Response, status
+
+# Valida dados de entrada e configura os modelos enviados como resposta pela API.
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+# Importa a classe responsável pelas operações no banco de dados.
 from .dao.usuario_dao import UsuarioDAO
+
+# Importa a classe que representa a entidade usuário.
 from .model.usuario import Usuario
 
 
