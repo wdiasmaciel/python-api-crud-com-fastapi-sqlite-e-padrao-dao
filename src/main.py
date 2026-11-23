@@ -1,4 +1,5 @@
-# Permite criar um gerenciador de recursos executado durante o ciclo de vida da API.
+# Define funções que iniciam recursos antes da API receber requisições e os liberam após o encerramento. 
+# Neste projeto, cria o gerenciador de ciclo de vida usado pelo FastAPI.
 from contextlib import asynccontextmanager
 
 # Permite representar datas no formato ano-mês-dia.
@@ -51,12 +52,26 @@ def obter_usuario_dao() -> UsuarioDAO:
     # O DAO usa a ConnectionFactory, responsável por ler a configuração do .env.
     return UsuarioDAO()
 
-
+"""
+asynccontextmanager permite executar ações antes e depois do funcionamento da API:
+1. Antes do comando yield: inicialização, como preparar recursos, criar a tabela usuário, etc.
+2. Depois do comando yield: encerramento e liberação desses recursos, como fechamento de conexões, etc.
+No projeto, ele é aplicado ao gerenciador lifespan, que cria a tabela usuario antes da API começar a 
+atender requisições.
+Ele funciona assim:
+1. Antes de yield: cria a tabela usuario.
+2. yield: mantém a API em funcionamento e recebe requisições.
+3. Depois de yield: executa alguma operação de finalização. Neste projeto, o programa
+   imprime "Fim." quando a API é encerrada.
+O asynccontextmanager transforma essa função em um gerenciador assíncrono usado pelo FastAPI no 
+início e no fim da execução da aplicação.
+"""
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     # Garante que a tabela exista antes de a API começar a receber requisições.
     obter_usuario_dao().create_table()
     yield
+    print("Fim.")
 
 
 # FastAPI gera a documentação interativa automaticamente em /docs (Swagger UI).
