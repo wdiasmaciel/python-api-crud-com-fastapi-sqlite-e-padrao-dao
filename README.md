@@ -146,6 +146,8 @@ A documentação alternativa fica disponível em:
 
 <http://127.0.0.1:8000/redoc>.
 
+**OBS**:
+
 Se estiver usando um contêiner remoto, Codespaces ou WSL no VS Code, `127.0.0.1` pode não ser acessível pelo navegador do seu computador. Abra a aba **Portas** do VS Code, encaminhe a porta `8000` se necessário e use a URL encaminhada, acrescentando `/docs` ou `/redoc`.
 
 ## Rotas e códigos HTTP
