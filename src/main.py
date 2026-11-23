@@ -75,6 +75,56 @@ você poderia usar algo como:
 
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]: ...
 
+Um AsyncGenerator é um gerador assíncrono: ele produz uma sequência de valores ao longo do 
+tempo e pode pausar enquanto aguarda operações assíncronas. 
+
+Exemplo:
+
+async def numeros() -> AsyncGenerator[int, None]:
+    yield 1
+    yield 2
+
+Os dois parâmetros do tipo têm significados diferentes:
+
+AsyncGenerator[TipoProduzido, TipoEnviado]
+
+1. TipoProduzido: o valor produzido pelo yield.
+2. TipoEnviado: o valor que pode ser recebido ao executar yield novamente.
+
+Exemplo:
+
+async def exemplo() -> AsyncGenerator[str, int]:
+    valor = yield "Primeiro"
+    print(valor)
+
+
+gerador = exemplo()
+print(await anext(gerador))  # "Primeiro"
+
+await gerador.asend(10)      # atribui 10 a "valor" e imprime 10
+
+Nesse exemplo, "Primeiro" é produzido por yield. Um consumidor poderia usar asend() 
+para enviar um inteiro de volta:
+
+await gerador.asend(10)
+
+Após esse asend(), a execução continua até yield ou até o gerador terminar.
+
+Nesse caso, 10 é apenas um dado enviado pelo código que consome o gerador. 
+asend() raramente é necessário.
+yield é usado aqui principalmente para pausar o gerador e trocar valores quando 
+esse recurso é relevante. 
+Quando o gerador está pausado em yield, apenas o código original atribui o valor 
+enviado por asend() à variável à esquerda de yield.
+
+No projeto:
+
+async def lifespan(...) -> AsyncGenerator[None, None]:
+
+1. O primeiro None: yield não produz nenhum valor.
+2. O segundo None: nenhum valor é enviado de volta ao gerador.
+3. O yield serve principalmente para pausar o gerador e indicar ao FastAPI que a API iniciou e está pronta para receber requisições.
+
 AsyncGenerator[None, None] é o tipo usado para indicar o que a função assíncrona lifespan 
 retorna durante a execução:
 
