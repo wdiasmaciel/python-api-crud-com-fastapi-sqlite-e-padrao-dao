@@ -80,7 +80,7 @@ retorna durante a execução:
 
 1. AsyncGenerator: gerador assíncrono que usa async for ou yield em uma função assíncrona.
 2. Primeiro None: tipo do valor emitido pelo yield. Como o yield está sozinho, não entrega nenhum valor.
-3. Segundo None: tipo do valor recebido pelo código que envia dados ao gerador — não é usado no projeto.
+3. Segundo None: tipo do valor recebido pelo código que envia dados ao gerador, não é usado no projeto.
 Neste projeto, lifespan produz apenas o ciclo de vida da API, portanto o tipo é AsyncGenerator[None, None]. 
 O None não indica que a função seja None; ele descreve os tipos associados ao yield.
 """
