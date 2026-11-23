@@ -1,9 +1,12 @@
 # Permite acessar variáveis de ambiente do sistema.
 import os
+
 # Disponibiliza o módulo padrão para trabalhar com SQLite.
 import sqlite3
+
 # Representa caminhos de arquivos de forma independente do sistema operacional.
 from pathlib import Path
+
 # Permite declarar tipos opcionais e aceitar mais de um tipo.
 from typing import Optional, Union
 
