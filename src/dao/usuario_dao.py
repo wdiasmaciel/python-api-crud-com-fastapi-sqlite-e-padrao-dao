@@ -9,9 +9,7 @@ from ..model.usuario import Usuario
 class UsuarioDAO:
     """Implementa as operações de persistência para a entidade Usuario."""
 
-    def __init__(
-        self, connection_factory: Optional[ConnectionFactory] = None
-    ) -> None:
+    def __init__(self, connection_factory: Optional[ConnectionFactory] = None) -> None:
         # Permite injetar outra fábrica (útil em testes); se omitida, usa a padrão.
         self.connection_factory = connection_factory or ConnectionFactory()
 
@@ -36,15 +34,13 @@ class UsuarioDAO:
         insert_sql = "INSERT INTO usuario (nome, nascimento) VALUES (?, ?)"
         with closing(self.connection_factory.create_connection()) as connection:
             with connection:
-                cursor = connection.execute(
-                    insert_sql, (usuario.nome, usuario.nascimento)
-                )
+                cursor = connection.execute(insert_sql, (usuario.nome, usuario.nascimento))
                 # lastrowid contém a chave primária atribuída pelo SQLite.
                 usuario.id = cursor.lastrowid
 
         return usuario
 
-    def read_all(self) -> list[Usuario]:
+    def read(self) -> list[Usuario]:
         # A ordenação por ID torna a listagem previsível para clientes da API.
         select_sql = "SELECT id, nome, nascimento FROM usuario ORDER BY id"
         with closing(self.connection_factory.create_connection()) as connection:
@@ -53,19 +49,12 @@ class UsuarioDAO:
 
         # Cada linha do SQLite é convertida em um objeto do domínio.
         return [
-            Usuario(
-                id=row["id"],
-                nome=row["nome"],
-                nascimento=row["nascimento"],
-            )
-            for row in rows
+            Usuario(id = row["id"], nome = row["nome"], nascimento = row["nascimento"]) for row in rows
         ]
 
     def read_last_inserted_id(self, connection: sqlite3.Connection) -> int:
         # MAX(id) obtém o maior identificador; uma tabela vazia não tem máximo.
-        row = connection.execute(
-            "SELECT MAX(id) AS max_id FROM usuario"
-        ).fetchone()
+        row = connection.execute("SELECT MAX(id) AS max_id FROM usuario").fetchone()
         if row is None or row[0] is None:
             # -1 sinaliza que ainda não há registros.
             return -1
@@ -84,23 +73,14 @@ class UsuarioDAO:
             return None
 
         # Converte a linha retornada pelo banco em um objeto do domínio.
-        return Usuario(
-            id=row["id"],
-            nome=row["nome"],
-            nascimento=row["nascimento"],
-        )
+        return Usuario(id = row["id"], nome = row["nome"], nascimento = row["nascimento"])
 
     def update(self, usuario: Usuario) -> bool:
         # Atualiza o registro e informa se o ID existia no banco.
-        update_sql = (
-            "UPDATE usuario SET nome = ?, nascimento = ? WHERE id = ?"
-        )
+        update_sql = "UPDATE usuario SET nome = ?, nascimento = ? WHERE id = ?"
         with closing(self.connection_factory.create_connection()) as connection:
             with connection:
-                cursor = connection.execute(
-                    update_sql,
-                    (usuario.nome, usuario.nascimento, usuario.id),
-                )
+                cursor = connection.execute(update_sql, (usuario.nome, usuario.nascimento, usuario.id))
                 return cursor.rowcount > 0
 
     def delete(self, usuario_id: int) -> bool:
