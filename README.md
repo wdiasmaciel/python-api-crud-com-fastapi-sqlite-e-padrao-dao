@@ -134,8 +134,15 @@ python -m uvicorn src.main:app --reload
 
 Ao iniciar, a API cria a tabela `usuario` caso ainda não exista. 
 
-A documentação Swagger fica disponível em <http://127.0.0.1:8000/docs> e a documentação
-alternativa em <http://127.0.0.1:8000/redoc>.
+## Swagger
+
+A documentação Swagger fica disponível em:
+
+<http://127.0.0.1:8000/docs>
+
+A documentação alternativa fica disponível em:
+
+<http://127.0.0.1:8000/redoc>.
 
 ## Rotas e códigos HTTP
 
@@ -147,10 +154,11 @@ alternativa em <http://127.0.0.1:8000/redoc>.
 | `PUT` | `/usuarios/{usuario_id}` | Atualiza nome e nascimento |
 | `DELETE` | `/usuarios/{usuario_id}` | Exclui um usuário |
 
-O campo `nome` é obrigatório e limitado a 256 caracteres. Espaços no início e no
-fim são removidos, e nomes vazios ou compostos somente por espaços são
-rejeitados. `nascimento` é opcional e usa o formato `AAAA-MM-DD`. Exemplo de
-corpo para criar ou atualizar:
+O campo `nome` é obrigatório e limitado a 256 caracteres. Espaços no início e no fim são removidos, e nomes vazios ou compostos somente por espaços são rejeitados. 
+
+O campo `nascimento` é opcional e usa o formato `AAAA-MM-DD`. 
+
+Exemplo de corpo de requisição HTTP para criar ou atualizar:
 
 ```json
 {
@@ -169,10 +177,10 @@ O cadastro retorna `201 Created` e inclui o ID atribuído pelo SQLite:
 }
 ```
 
-Consultas e atualizações bem-sucedidas retornam `200 OK`; uma exclusão
-bem-sucedida retorna `204 No Content`. Se o ID não existir, as rotas de consulta,
-atualização e exclusão retornam `404 Not Found`. Dados inválidos retornam
-`422 Unprocessable Entity`.
+1. Consultas e atualizações bem-sucedidas retornam `200 OK`; 
+2. Uma exclusão bem-sucedida retorna `204 No Content`. 
+3. Se o ID não existir, as rotas de consulta, atualização e exclusão retornam `404 Not Found`. 
+5. Dados inválidos retornam `422 Unprocessable Entity`.
 
 ## Testar com REST Client
 
