@@ -73,7 +73,16 @@ Tecnicamente, "_" é apenas um nome de variável válido em Python, não uma pal
 Por convenção, ela indica que o valor pode ser ignorado. Se preferir um nome mais explícito,
 você poderia usar algo como:
 
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]: ...
+
+AsyncGenerator[None, None] é o tipo usado para indicar o que a função assíncrona lifespan 
+retorna durante a execução:
+
+1. AsyncGenerator: gerador assíncrono que usa async for ou yield em uma função assíncrona.
+2. Primeiro None: tipo do valor emitido pelo yield. Como o yield está sozinho, não entrega nenhum valor.
+3. Segundo None: tipo do valor recebido pelo código que envia dados ao gerador — não é usado no projeto.
+Neste projeto, lifespan produz apenas o ciclo de vida da API, portanto o tipo é AsyncGenerator[None, None]. 
+O None não indica que a função seja None; ele descreve os tipos associados ao yield.
 """
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
