@@ -26,6 +26,8 @@ pydantic>=2.0,<3.0
 uvicorn>=0.27,<1.0
 ```
 
+Também crie a pasta `bd`.
+
 ## Ambiente virtual (virtual environment)
 
 Um ambiente virtual (venv) é um ambiente Python isolado para um projeto. 
@@ -112,17 +114,16 @@ O arquivo `.env` na raiz guarda configurações locais.
 A variável `SQLITE_DB_PATH` define o arquivo SQLite usado pela aplicação:
 
 ```env
-SQLITE_DB_PATH=./banco_de_dados.db
+SQLITE_DB_PATH=./bd/banco_de_dados.db
 ```
 
 O `python-dotenv` carrega o arquivo `.env`, e a `ConnectionFactory` usa a variável `SQLITE_DB_PATH` ao abrir conexões. 
 
-Uma variável `SQLITE_DB_PATH` já definida no sistema tem
-prioridade sobre o valor do `.env`. 
+Uma variável `SQLITE_DB_PATH` já definida no sistema tem prioridade sobre o valor do `.env`. 
 
 Caminhos relativos são resolvidos a partir do diretório em que o comando é executado. 
 
-Sem essa configuração, o padrão é `teste.db`.
+Sem essa configuração, o padrão é `./bd/teste.db`.
 
 ## Executar a API
 
