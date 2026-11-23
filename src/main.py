@@ -139,7 +139,7 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     # Garante que a tabela exista antes de a API começar a receber requisições.
     obter_usuario_dao().create_table()
     yield
-    print("Fim.")
+    print("\n\n --- Fim. --- \n\n")
 
 
 # FastAPI gera a documentação interativa automaticamente em /docs (Swagger UI).
