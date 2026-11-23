@@ -1,7 +1,8 @@
 # API CRUD de usuários com FastAPI, SQLite e DAO
 
-Este projeto demonstra uma API REST para cadastrar, consultar, atualizar
-e excluir usuários. O padrão **Data Access Object (DAO)** mantém os comandos SQL
+* Este projeto demonstra uma API REST para cadastrar, consultar, atualizar e excluir usuários. 
+
+* O padrão **Data Access Object (DAO)** mantém os comandos SQL
 separados das rotas HTTP, e o SQLite persiste os dados em um arquivo local.
 
 ## Requisitos
@@ -10,21 +11,48 @@ separados das rotas HTTP, e o SQLite persiste os dados em um arquivo local.
 - Visual Studio Code
 - Extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) para executar o arquivo `teste.http`.
 
+## Dependências
+
+Na raiz do repositório, crie o arquivo `requirements.txt` com o conteúdo abaixo:
+
+```text
+# Carrega variáveis de ambiente a partir do arquivo .env:
+python-dotenv>=1.0,<2.0
+# Framework usado para criar a API REST e suas rotas HTTP:
+fastapi>=0.110,<1.0
+# Valida os dados de entrada e saída das requisições da API:
+pydantic>=2.0,<3.0
+# Servidor ASGI (Asynchronous Server Gateway Interface) responsável por executar a aplicação FastAPI:
+uvicorn>=0.27,<1.0
+```
+
+## Ambiente virtual (virtual environment)
+
+Um ambiente virtual (venv) é um ambiente Python isolado para um projeto. 
+
+Ele mantém separadamente:
+
+* Versões de pacotes.
+
+* Dependências do projeto.
+
+* O interpretador Python usado no projeto.
+
+* Isso evita conflitos entre projetos que dependem de versões diferentes da mesma biblioteca.
+
+Ao ativá-lo, o terminal passa a usar o Python e os pacotes daquele ambiente:
+
 ## Instalação
 
-Na raiz do repositório, crie e ative um ambiente virtual e instale as dependências:
+Ainda na raiz do repositório:
+
+1. Crie um ambiente virtual (virtual environment):
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate # Linux/macOS
-pip install -r requirements.txt
 ```
 
-No Windows, ative o ambiente com:
-
-```bash
-.venv\Scripts\activate
-```
+**OBS**:
 
 No comando:
 
@@ -34,40 +62,67 @@ No comando:
 2. **-m**: significa `module`. Executa um módulo Python como script.
 3. **venv**: nome do módulo padrão do Python que cria ambientes virtuais (virtual environment).
 4. **.venv**: nome e caminho da pasta que será criada para conter o ambiente.
-Exemplo:
 
+No caso, cria o ambiente na pasta `.venv` dentro do diretório atual. 
 
-Cria o ambiente na pasta .venv dentro do diretório atual. Em seguida, ative-o:
+Você pode usar outro nome para a pasta, como `meuambiente`:
 
+```bash
+python -m venv meuambiente
+```
 
-Você pode usar outro nome, como meuambiente:
+Mas `.venv` é uma convenção comum e costuma ser ignorada pelo Git.
 
+2. Ative o ambiente virtual (virtual environment):
 
-Mas .venv é uma convenção comum e costuma ser ignorada pelo Git.
+```bash
+source .venv/bin/activate # Linux/macOS.
+```
 
 **OBS**:
-> Um ambiente virtual (venv) é um ambiente Python isolado para um projeto. 
-> Ele mantém separadamente:
-> * Versões de pacotes.
-> * Dependências do projeto.
-> * O interpretador Python usado nele.
-> * Isso evita conflitos entre projetos que dependem de versões diferentes da mesma biblioteca.
-> Ao ativá-lo, o terminal passa a usar o Python e os pacotes daquele ambiente:
+
+No Windows, ative o ambiente com:
+
+```bash
+.venv\Scripts\activate
+```
+
+3. Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+ou
+
+```bash
+pip install --requirement requirements.txt
+```
+
+**OBS**:
+
+No comando `pip install -r requirements.txt`, o `-r` significa `--requirement` (exigência, dependência).
+
+Ele informa ao pip que as dependências devem ser lidas do arquivo indicado:
 
 ## Configuração com `.env`
 
-O arquivo `.env` na raiz guarda configurações locais. A variável
-`SQLITE_DB_PATH` define o arquivo SQLite usado pela aplicação:
+O arquivo `.env` na raiz guarda configurações locais. 
+
+A variável `SQLITE_DB_PATH` define o arquivo SQLite usado pela aplicação:
 
 ```env
 SQLITE_DB_PATH=./banco_de_dados.db
 ```
 
-O `python-dotenv` carrega o arquivo, e a `ConnectionFactory` usa a variável ao
-abrir conexões. Uma variável `SQLITE_DB_PATH` já definida no sistema tem
-prioridade sobre o valor do `.env`. Caminhos relativos são resolvidos a partir
-do diretório em que o comando é executado. Sem essa configuração, o padrão é
-`teste.db`.
+O `python-dotenv` carrega o arquivo `.env`, e a `ConnectionFactory` usa a variável `SQLITE_DB_PATH` ao abrir conexões. 
+
+Uma variável `SQLITE_DB_PATH` já definida no sistema tem
+prioridade sobre o valor do `.env`. 
+
+Caminhos relativos são resolvidos a partir do diretório em que o comando é executado. 
+
+Sem essa configuração, o padrão é `teste.db`.
 
 ## Executar a API
 
