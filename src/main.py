@@ -65,6 +65,15 @@ Ele funciona assim:
    imprime "Fim." quando a API é encerrada.
 O asynccontextmanager transforma essa função em um gerenciador assíncrono usado pelo FastAPI no 
 início e no fim da execução da aplicação.
+
+No método lifespan, o underline (_) é um padrão usado apenas como nome convencional para 
+um parâmetro que não será utilizado. O FastAPI exige que o gerenciador lifespan receba a 
+instância da aplicação. Como esta função não usa essa instância, o nome "_" deixa a intenção clara.
+Tecnicamente, "_" é apenas um nome de variável válido em Python, não uma palavra especial. 
+Por convenção, ela indica que o valor pode ser ignorado. Se preferir um nome mais explícito,
+você poderia usar algo como:
+
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 """
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
