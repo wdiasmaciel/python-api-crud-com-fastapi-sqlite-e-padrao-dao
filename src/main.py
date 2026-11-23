@@ -66,7 +66,7 @@ def criar_usuario(dados: UsuarioEntrada, dao: UsuarioDAO = Depends(obter_usuario
 
 @app.get("/usuarios", response_model = List[UsuarioResposta], summary="Listar usuários")
 def listar_usuarios(dao: UsuarioDAO = Depends(obter_usuario_dao)) -> List[Usuario]:
-    return dao.read()
+    return dao.read_all()
 
 
 @app.get("/usuarios/{usuario_id}", response_model = UsuarioResposta, summary="Consultar usuário por ID")

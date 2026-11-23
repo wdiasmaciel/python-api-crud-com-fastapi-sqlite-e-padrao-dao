@@ -40,7 +40,7 @@ class UsuarioDAO:
 
         return usuario
 
-    def read(self) -> list[Usuario]:
+    def read_all(self) -> list[Usuario]:
         # A ordenação por ID torna a listagem previsível para clientes da API.
         select_sql = "SELECT id, nome, nascimento FROM usuario ORDER BY id"
         with closing(self.connection_factory.create_connection()) as connection:
