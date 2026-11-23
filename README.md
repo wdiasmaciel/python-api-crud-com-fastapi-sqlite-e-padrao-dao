@@ -186,22 +186,18 @@ O cadastro retorna `201 Created` e inclui o ID atribuído pelo SQLite:
 
 1. Inicie o servidor.
 2. Abra [`teste.http`](./teste.http) no VS Code.
-3. Clique em **Send Request** acima de cada requisição. Para consultar, atualizar
-   ou excluir um usuário, substitua o `1` da URL pelo ID devolvido pela
-   requisição de cadastro.
+3. Clique em **Send Request** acima de cada requisição. Para consultar, atualizar, ou excluir um usuário. Substitua o `1` da URL pelo ID devolvido pela requisição de cadastro.
 
 ## Como o padrão DAO aparece neste projeto
 
-- `src/main.py` define os modelos de entrada e saída, valida os dados e atende às
-  requisições HTTP. As rotas não executam comandos SQL.
+- `src/main.py` define os modelos de entrada e saída, valida os dados e atende às requisições HTTP. As rotas não executam comandos SQL.
 - `src/model/usuario.py` representa a entidade `Usuario` usada entre as camadas.
-- `src/dao/usuario_dao.py` cria a tabela e executa as operações SQL de criação,
-  leitura, atualização e exclusão.
-- `src/database/connection_factory.py` carrega a configuração do ambiente e
-  centraliza a criação das conexões SQLite.
+- `src/dao/usuario_dao.py` cria a tabela e executa as operações SQL de criação, leitura, atualização e exclusão.
+- `src/database/connection_factory.py` carrega a configuração do ambiente e centraliza a criação das conexões SQLite.
 
-Assim, a rota traduz HTTP em chamadas ao DAO, e o DAO traduz essas chamadas em
-operações no banco. Os valores SQL são passados por parâmetros (`?`), em vez de
+Assim, a rota traduz HTTP em chamadas ao DAO, e o DAO traduz essas chamadas em operações no banco. 
+
+Os valores SQL são passados por parâmetros (`?`), em vez de
 serem concatenados ao comando.
 
 ---
