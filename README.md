@@ -9,6 +9,7 @@ separados das rotas HTTP, e o SQLite persiste os dados em um arquivo local.
 
 - Python 3.9 ou superior
 - Visual Studio Code
+- Extensão [SQLite Viewer](https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer) 
 - Extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) para executar o arquivo `teste.http`.
 
 ## Dependências
