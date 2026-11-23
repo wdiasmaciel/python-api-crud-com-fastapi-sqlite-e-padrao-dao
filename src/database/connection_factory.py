@@ -21,6 +21,26 @@ load_dotenv()
 class ConnectionFactory:
     """Centraliza a configuração e a criação das conexões SQLite."""
 
+    """
+    Optional[Union[str, Path]]: é uma anotação de tipo para o parâmetro ou 
+                                atributo database_path:
+
+    1. str: aceita uma string, como "banco.db".
+    2. Path: aceita um objeto pathlib.Path, como Path("banco.db").
+    3. Union[str, Path]: combina os dois tipos, permitindo uma string ou um Path.
+    3. Optional[...]: permite também o valor None (nulo), indicando que nenhum 
+                      caminho foi informado.
+    Em resumo:
+    database_path: Optional[Union[str, Path]]
+
+    significa:
+    database_path pode ser str, Path ou None (nulo).
+
+    Exemplos válidos:
+    1. database_path = "banco.db"
+    2. database_path = Path("banco.db")
+    3. database_path = None
+    """
     def __init__(self, database_path: Optional[Union[str, Path]] = None) -> None:
         # Um caminho passado diretamente prevalece sobre a variável de ambiente.
         # Sem ambos, mantém ./bd/teste.db como padrão para compatibilidade.
