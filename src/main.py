@@ -31,12 +31,12 @@ class UsuarioEntrada(BaseModel):
     @classmethod
     def remover_espacos_do_nome(cls, nome: str) -> str:
         # Impede nomes vazios ou compostos somente por espaços.
-        nome = nome.strip()
+        nome = nome.strip() # Remove espaços em branco.
         if not nome:
             raise ValueError("O nome não pode ficar vazio.")
         return nome
 
-
+# A classe UsuarioResposta é filha de BaseModel.
 class UsuarioResposta(BaseModel):
     """Descreve os campos de usuário que a API devolve nas respostas."""
 
@@ -46,7 +46,6 @@ class UsuarioResposta(BaseModel):
     id: int
     nome: str
     nascimento: Optional[date] = None
-
 
 def obter_usuario_dao() -> UsuarioDAO:
     # O DAO usa a ConnectionFactory, responsável por ler a configuração do .env.
