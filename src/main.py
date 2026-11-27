@@ -20,7 +20,7 @@ from .dao.usuario_dao import UsuarioDAO
 # Importa a classe que representa a entidade usuário.
 from .model.usuario import Usuario
 
-
+# A classe UsuarioEntrada é filha de BaseModel.
 class UsuarioEntrada(BaseModel):
     """Define e valida os dados enviados para criar ou atualizar um usuário."""
 
