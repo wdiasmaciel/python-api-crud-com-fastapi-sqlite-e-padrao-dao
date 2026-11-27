@@ -12,7 +12,7 @@ from typing import AsyncGenerator, List, Optional
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 
 # Valida dados de entrada e configura os modelos enviados como resposta pela API.
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 # Importa a classe responsável pelas operações no banco de dados.
 from .dao.usuario_dao import UsuarioDAO
