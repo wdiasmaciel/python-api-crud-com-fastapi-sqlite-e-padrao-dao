@@ -40,9 +40,6 @@ class UsuarioEntrada(BaseModel):
 class UsuarioResposta(BaseModel):
     """Descreve os campos de usuário que a API devolve nas respostas."""
 
-    # Permite criar a resposta diretamente a partir do dataclass Usuario.
-    model_config = ConfigDict(from_attributes=True)
-
     id: int
     nome: str
     nascimento: Optional[date] = None
